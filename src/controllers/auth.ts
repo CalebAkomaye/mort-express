@@ -1,6 +1,6 @@
-import { createUser, getUserByEmail } from 'database/actions/db.actions';
+import { createUser, getUserByEmail } from '../database/actions/db.actions';
 import express from 'express';
-import { authenticate, randBytes } from 'helpers';
+import { authenticate, randBytes } from '../helpers/index';
 
 export const register = async (req: express.Request, res: express.Response) => {
   try {

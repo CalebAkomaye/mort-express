@@ -1,6 +1,9 @@
 import crypto from 'crypto';
-import { SECRET } from 'env.db.config';
+import dotenv from 'dotenv';
+// import { SECRET } from '../env.db.config';
+dotenv.config();
 
+const SECRET = process.env.SECRET;
 if (!SECRET) {
   throw new Error('Please provide a secret key');
 }
