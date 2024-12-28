@@ -1,5 +1,5 @@
 import express from 'express';
-import { get, identity, merge } from 'lodash';
+import { get, merge } from 'lodash';
 import { getUserBySessionToken } from '../database/actions/db.actions';
 
 export const isAuthenticated = async (
@@ -26,5 +26,30 @@ export const isAuthenticated = async (
     console.log(error);
     res.status(401).json({ msg: 'Unauthorized' });
     return;
+  }
+};
+
+export const isUser = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  try {
+    const { id } = req.params;
+    const currentUserId = get(req, 'identity._id') as string | undefined;
+    console.log('currentUserId: ', currentUserId?.toString());
+    if (!currentUserId?.toString()) {
+      res.status(401).json({ msg: 'Unauthorized' });
+      return;
+    }
+
+    if (currentUserId.toString() !== id) {
+      res.status(401).json({ msg: 'Unauthorized' });
+      return;
+    }
+    next();
+  } catch (error) {
+    console.log(error);
+    res.status(401).json({ msg: 'Unauthorized' });
   }
 };
