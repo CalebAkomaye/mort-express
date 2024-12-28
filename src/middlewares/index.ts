@@ -37,7 +37,6 @@ export const isUser = async (
   try {
     const { id } = req.params;
     const currentUserId = get(req, 'identity._id') as string | undefined;
-    console.log('currentUserId: ', currentUserId?.toString());
     if (!currentUserId?.toString()) {
       res.status(401).json({ msg: 'Unauthorized' });
       return;
