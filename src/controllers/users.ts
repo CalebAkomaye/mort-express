@@ -10,8 +10,9 @@ export const getAllUsers = async (
   res: express.Response
 ) => {
   try {
-    const users = await getUsers();
-    res.status(200).json({ msg: 'successful', users });
+    const data = await getUsers();
+
+    res.status(200).json({ msg: 'successful', users: { data } });
     return;
   } catch (error) {
     console.log(error);

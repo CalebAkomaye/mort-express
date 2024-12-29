@@ -4,7 +4,7 @@ import { authenticate, randBytes } from '../helpers/index';
 
 export const register = async (req: express.Request, res: express.Response) => {
   try {
-    const { email, password, username } = req.body;
+    const { email, password, username, bio, avatar } = req.body;
 
     if (!email || !password || !username) {
       res.status(400).json({ msg: 'All fields are required' });
@@ -20,6 +20,8 @@ export const register = async (req: express.Request, res: express.Response) => {
     const user = await createUser({
       email,
       username,
+      bio,
+      avatar,
       authentication: {
         salt,
         password: authenticate(salt, password),

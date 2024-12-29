@@ -2,6 +2,7 @@ import http from 'http';
 import dotenv from 'dotenv';
 import { app } from './index';
 import mongoose from 'mongoose';
+import { seedUsers } from './seed';
 dotenv.config();
 
 export const { PORT, MONGODB_URI, SECRET } = process.env;
@@ -45,6 +46,7 @@ export const connectDB = async (): Promise<void> => {
 export const startServer = async () => {
   const server = http.createServer(app);
   await connectDB();
+  await seedUsers();
 
   server.listen(PORT, () => {
     console.log(`🚀 Server is running on port ${PORT}`);
